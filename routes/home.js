@@ -5,7 +5,7 @@ let data = [];
 var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "hwoo045rla",
+  password: "111111",
   database: "tutorial",
 });
 
