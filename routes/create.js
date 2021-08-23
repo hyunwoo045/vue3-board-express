@@ -7,9 +7,6 @@ router.post("/", function (req, res) {
   let title = req.body.title;
   let description = req.body.description;
   let author_id = 1;
-
-  console.log(req.body);
-
   let connection = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -23,7 +20,6 @@ router.post("/", function (req, res) {
       [title, description, author_id],
       (err) => {
         if (err) throw err;
-        console.log("INSERTED SUCCESSFULLY");
         res.send("Create Success!");
       }
     );
@@ -33,7 +29,6 @@ router.post("/", function (req, res) {
       [title, description, author_id],
       (err) => {
         if (err) throw err;
-        console.log("UPDATED SUCCESSFULLY");
         res.send("Update Success!");
       }
     );

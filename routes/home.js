@@ -14,8 +14,6 @@ router.get("/", (req, res) => {
 
   let _url = req.url;
   let queryData = url.parse(_url, true).query;
-  console.log(queryData.id);
-
   if (queryData.id === undefined) {
     connection.query("SELECT * FROM topic", function (err, topic) {
       if (err) {
