@@ -12,7 +12,7 @@ router.post("/", function (req, res) {
   });
   connection.connect();
 
-  connection.query(`DELETE FROM topic WHERE id=${id}`, (err) => {
+  connection.query(`DELETE FROM contents WHERE id=?`, [id], (err) => {
     if (err) throw err;
     res.send("Delete Completed");
   });

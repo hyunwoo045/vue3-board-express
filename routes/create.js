@@ -3,10 +3,11 @@ var mysql = require("mysql");
 var router = express.Router();
 
 router.post("/", function (req, res) {
-  let id = req.body.id;
+  let mode = req.body.mode;
+  let id = String(req.body.id);
   let title = req.body.title;
   let description = req.body.description;
-  let author_id = 1;
+  let author = req.body.author;
   let connection = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -14,22 +15,22 @@ router.post("/", function (req, res) {
     database: "tutorial",
   });
   connection.connect();
-  if (id === "-1") {
+  if (mode === "add") {
     connection.query(
-      `INSERT INTO topic (title, description, created, author_id) VALUES(?, ?, NOW(), ?)`,
-      [title, description, author_id],
+      "INSERT INTO contents (title, description, author, created, updated) VALUES(?, ?, ?, NOW(), NOW())",
+      [title, description, author],
       (err) => {
         if (err) throw err;
-        res.send("Create Success!");
+        res.send("INSERTED");
       }
     );
   } else {
     connection.query(
-      `UPDATE topic SET title=?, description=?, author_id=? WHERE id=${id}`,
-      [title, description, author_id],
+      "UPDATE contents SET title=?, description=?, updated=NOW() WHERE id=?",
+      [title, description, id],
       (err) => {
         if (err) throw err;
-        res.send("Update Success!");
+        res.send("UPDATED");
       }
     );
   }

@@ -15,23 +15,15 @@ router.get("/", (req, res) => {
   let _url = req.url;
   let queryData = url.parse(_url, true).query;
   let id = queryData.id;
-  let _query = "";
-  if (id === undefined) {
-    _query = "SELECT * FROM contents";
-    connection.query(_query, (err, topics) => {
+
+  connection.query(
+    "SELECT * FROM comments WHERE content_id=?",
+    [id],
+    (err, comments) => {
       if (err) throw err;
-      res.send(topics);
-    });
-  } else {
-    connection.query(
-      "SELECT * FROM contents WHERE id=?",
-      [id],
-      (err, topics) => {
-        if (err) throw err;
-        res.send(topics);
-      }
-    );
-  }
+      res.send(comments);
+    }
+  );
 });
 
 module.exports = router;
